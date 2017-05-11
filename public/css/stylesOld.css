@@ -1,0 +1,247 @@
+html {
+  box-sizing: border-box;
+  color: #222;
+  font-family: Roboto, sans-serif
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  color: inherit;
+}
+
+
+
+/****************************************
+  Elements
+*****************************************/
+
+body {
+  margin-top: 0rem;
+  margin-right: 1rem;
+  margin-bottom: 0rem;
+  margin-left: 1rem;
+}
+
+a {
+  color: #2297D1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+* > h1 {
+  margin-top: 0;
+}
+
+
+/****************************************
+  Components
+*****************************************/
+
+/**
+ * Input
+ */
+
+input[type="text"] {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  font-size: 0.7em;
+  padding: 0.5em 1em;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #2297D1;
+}
+
+
+/**
+ * Button
+ */
+
+button {
+  border: none;
+  border-radius: 3px;
+  background-color: #2297D1;
+  font-size: 0.7em;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  color: #fff;
+}
+
+button.delete {
+  background-color: #B83B3B;
+}
+
+
+/**
+ * Search Form
+ */
+
+form.search {
+  margin-top: 1em;
+}
+
+form.search button{
+  margin-left: 0.5em;
+}
+
+
+/**
+ * Data List
+ */
+
+.data-list-item {
+  padding: 0.6em;
+  display: flex;
+  border-bottom: 1px solid #bbb;
+}
+
+.data-list-item .details {
+  flex: 1;
+}
+
+
+/**
+ * User Profile
+ */
+
+.user-profile {
+  display: flex;
+}
+
+.user-profile img {
+  display: block;
+  width: 100px;
+  height: 100px;
+}
+
+.user-profile .details {
+  flex: 1;
+  margin-left: 1em;
+}
+
+.user-profile h1 {
+  margin: 0;
+}
+
+.user-profile .repos {
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+}
+
+.user-profile .repos li {
+  float: left;
+  width: 250px;
+  margin-right: 2em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/****************************************
+  Layout
+*****************************************/
+
+/**
+ * Main Layout
+ */
+
+.app {
+  display: flex;
+  min-width: 800px;
+}
+
+.primary-header {
+  width: 0%;
+  height: 1rem;
+  display: block;
+}
+
+.primary-aside {
+  width: 12rem;
+}
+
+.primary-aside ul {
+  list-style: none;
+  margin: 0;
+}
+
+.primary-aside a {
+  display: block;
+  padding: 0.6em;
+}
+
+.primary-aside a.active {
+  color: #fff;
+  background-color: #2297D1;
+}
+
+
+/**
+ * Search Layout
+ */
+
+.search-header, .search-footer {
+  font-weight: bold;
+}
+
+.search-results {
+  margin: 1em 0;
+}
+
+/*
+Мои натстройки layout
+*/
+
+.fullWidth {
+  width: 100%;
+}
+.titleApp {
+  width: 100%;
+}
+
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+}
+.nav {
+  -webkit-flex-basis: 1px;
+  flex-basis: 1px;
+
+}
+.mainContext {
+  -webkit-flex-grow: 5;
+  flex-grow: 5;
+  flex: -moz-available;
+}
+
+.map1 {
+  width: 750px;
+  height: 400px;
+}
+
+.center {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -30px 0 0 -30px;
+}
+.centerDialog {
+    text-align: justify;
+    background-color:white;
+    width: 300px;
+    height: 80px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -150px 0 0 -40px;
+    border: 3px solid black;
+    border-radius: 5px;
+}
+.headSlider {
+  height: 75px;
+}
