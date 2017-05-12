@@ -6,6 +6,8 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
+import LoginModal from '../LoginModal';
+
 
 class MainLayout extends Component {
   constructor(props) {
@@ -58,9 +60,12 @@ class MainLayout extends Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ background: '#4ff', padding: 0 }} >
-             Gamma v0
-          </Header>
+          <div className='header' style={{ background: '#5ff', minHeight: 36 }} >
+            <h4>Gamma v 0.1</h4>
+            <div style={{ float: 'right' }}>
+              <LoginModal/>
+            </div>
+          </div>
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '12px 0' }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>

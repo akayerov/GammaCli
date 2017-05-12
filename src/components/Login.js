@@ -10,6 +10,8 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        window.location.replace('http://localhost:8090/');
+//        window.location = 'http://localhost:8090/';
       }
     });
   }
