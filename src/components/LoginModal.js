@@ -1,5 +1,7 @@
 import  React from 'react';
+import { connect } from 'react-redux';
 import { Input,  Icon, Modal, Button } from 'antd';
+import { handleLogin } from '../actions/auth-actions';
 
 class LoginModal extends React.Component {
   constructor(props) {
@@ -40,8 +42,12 @@ class LoginModal extends React.Component {
       }
       return res.json();
     }).then((json) => {
-      console.log(json);
-    });
+      if (!json.success) {
+        throw new Error(json.error || 'unknown server error');
+      }
+      this.props.handleLogin(json);
+    })
+    .catch(err => alert(err.message || err));
   }
   handleShowModal = () => {
     this.setState({
@@ -79,4 +85,4 @@ class LoginModal extends React.Component {
   }
 }
 
-export default LoginModal;
+export default connect(null, { handleLogin })(LoginModal);

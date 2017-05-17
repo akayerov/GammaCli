@@ -28,7 +28,7 @@ class MainLayout extends Component {
 
   render() {
     return (
-      <Layout>
+      <Layout style={{ height: '100vh' }}>
         <Sider
           collapsible
           collapsed={this.state.collapsed}
@@ -66,7 +66,7 @@ class MainLayout extends Component {
               <LoginModal/>
             </div>
           </div>
-          <Content style={{ margin: '0 16px' }}>
+          <Content style={{ margin: '0 16px', overflow: 'initial' }}>
             <Breadcrumb style={{ margin: '12px 0' }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
