@@ -9,5 +9,6 @@ export const handleLogin = (payload) => {
 };
 export const logout = () => {
   window.localStorage.removeItem('token');
+  notification.info({ message: 'Bye bye!' });
   return ({ type: LOGOUT });
 };

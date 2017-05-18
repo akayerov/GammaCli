@@ -62,8 +62,10 @@ class MainLayout extends Component {
         <Layout>
           <div className='header' style={{ background: '#5ff', minHeight: 36 }} >
             <h4>Gamma v 0.1</h4>
+            <Link to="/private">Private path</Link>
             <div style={{ float: 'right' }}>
               <LoginModal/>
+              <Link to="/logout">Log out</Link>
             </div>
           </div>
           <Content style={{ margin: '0 16px', overflow: 'initial' }}>
