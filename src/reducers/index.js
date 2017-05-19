@@ -8,7 +8,8 @@ import privateReducer from './private';
 // Combine Reducers
 const reducers = combineReducers({
   userState: userReducer,
-  token: authReducer,
+//  token: authReducer,
+  auth:authReducer,
   private: privateReducer
 });
 

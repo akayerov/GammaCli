@@ -1,5 +1,7 @@
 import { default as React,  Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 // import 'antd/dist/antd.css';
 
@@ -7,13 +9,20 @@ const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
 import LoginModal from '../LoginModal';
+import store from '../../store';
+
+function displayName() {
+//  console.log(store.getState().auth.displayname);
+  return store.getState().auth.displayname;
+//  return this.props.displayname;
+}
 
 
 class MainLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: 'Петров Иван',
+      displayname:  displayName(),
       collapsed: false,
       mode: 'inline'
     };
@@ -62,10 +71,11 @@ class MainLayout extends Component {
         <Layout>
           <div className='header' style={{ background: '#5ff', minHeight: 36 }} >
             <h4>Gamma v 0.1</h4>
-            <Link to="/private">Private path</Link>
+            <Link to='/private'>Private path</Link>
             <div style={{ float: 'right' }}>
+              {this.props.displayname}
               <LoginModal/>
-              <Link to="/logout">Log out</Link>
+              <Link to='/logout'>Log out</Link>
             </div>
           </div>
           <Content style={{ margin: '0 16px', overflow: 'initial' }}>
@@ -86,5 +96,18 @@ class MainLayout extends Component {
   }
 }
 
+const layoutStateToProps = function (store) {
+  return {
+    displayname: store.auth.displayname
+  };
+};
 
-export default MainLayout;
+const layoutDispatchToActions = {
+};
+
+export default connect(
+  layoutStateToProps,
+  layoutDispatchToActions // для этого передаем объект в коннект вторым аргументом
+)(MainLayout);
+
+// export default MainLayout;

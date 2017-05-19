@@ -3,7 +3,7 @@ export const GET_PRIVATE_RES = 'GET_PRIVATE_RES';
 export const getPrivateData = () => (dispatch, getState) => {
   fetch('//localhost:3000/private', {
     headers: {
-      Authorization: getState().token
+      Authorization: getState().auth.token
     }
   })
   .then(res => res.json())

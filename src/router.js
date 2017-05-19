@@ -14,22 +14,23 @@ import { logout } from './actions/auth-actions';
 import store from './store';
 
 function isLogged() {
-  return !!store.getState().token;
+  return !!store.getState().auth.token;
 }
+
 
 const RouterContainer = ({ logout }) => (
   <Router history={browserHistory}>
     <Route component={MainLayout}>
       <Route path='/' component={RecordsList} />
       <Route path='login'  component={Login} />
-      <Route path="logout" onEnter={() => logout()}>
-        <IndexRedirect to="/" />
+      <Route path='logout' onEnter={() => logout()}>
+        <IndexRedirect to='/' />
       </Route>
       <Route path='records'>
         <IndexRoute component={RecordsList} />
       </Route>
       <Route
-        path="private"
+        path='private'
         onEnter={() => {
           if (!isLogged()) {
             notification.error({ message: 'Prove that you are Vasya' });
