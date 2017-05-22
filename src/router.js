@@ -6,7 +6,7 @@ import { notification } from 'antd';
 import MainLayout from './components/layouts/main_layout_i18';
 
 // Pages
-import RecordsList from './components/RecordsList';
+import RecordsList from './components/Records/RecordsList';
 import Login from './components/Login';
 import Private from './components/Private';
 

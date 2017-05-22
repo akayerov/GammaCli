@@ -73,9 +73,7 @@ class MainLayout extends Component {
             <h4>Gamma v 0.1</h4>
             <Link to='/private'>Private path</Link>
             <div style={{ float: 'right' }}>
-              {this.props.displayname}
-              <LoginModal/>
-              <Link to='/logout'>Log out</Link>
+              <LoginModal  displayname={this.props.displayname} />
             </div>
           </div>
           <Content style={{ margin: '0 16px', overflow: 'initial' }}>

@@ -1,4 +1,4 @@
-import { GET_PRIVATE_RES } from '../actions/private-actions';
+import { GET_PRIVATE_RES } from './';
 
 const privateReducer = (state = [], action) => {
   switch (action.type) {
@@ -7,6 +7,6 @@ const privateReducer = (state = [], action) => {
     default:
       return state;
   }
-}
+};
 
 export default privateReducer;

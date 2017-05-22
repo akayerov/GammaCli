@@ -2,6 +2,7 @@ import  React from 'react';
 import { connect } from 'react-redux';
 import { Input,  Icon, Modal, Button } from 'antd';
 import { handleLogin } from '../actions/auth-actions';
+import { browserHistory } from 'react-router';
 
 class LoginModal extends React.Component {
   constructor(props) {
@@ -54,6 +55,10 @@ class LoginModal extends React.Component {
       visible: true
     });
   }
+  handleLogout = () => {
+    browserHistory.push('/logout');
+//    window.location = '/logout';
+  }
 
   handleChange = (e) => {
     this.setState({
@@ -71,7 +76,12 @@ class LoginModal extends React.Component {
   render() {
     return (
       <div>
-        <Button type='primary' onClick={this.handleShowModal}>Login</Button>
+        {this.props.displayname}
+        {this.props.displayname === '' | this.props.displayname == null ? (
+          <Button type='primary' onClick={this.handleShowModal}>Login</Button>
+        ) : (
+          <Button type='primary' onClick={this.handleLogout}>Logout</Button>
+        )}
         <Modal title='Basic Modal' visible={this.state.visible}
           onOk={this.handleOk} onCancel={this.handleCancel}
         >

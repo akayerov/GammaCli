@@ -4,13 +4,14 @@ import { combineReducers } from 'redux';
 import userReducer from './user-reducer';
 import authReducer from './auth';
 import privateReducer from './private';
+import recordsReducer from '../components/Records/records-reducer';
 
 // Combine Reducers
 const reducers = combineReducers({
   userState: userReducer,
-//  token: authReducer,
   auth:authReducer,
-  private: privateReducer
+  private: privateReducer,
+  records: recordsReducer
 });
 
 export default reducers;
