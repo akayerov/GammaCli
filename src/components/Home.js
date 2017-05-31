@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-
-const Home = React.createClass({
+class Home extends Component {
   render() {
     return (
-      <div className='home-page'>
-        <h1>Стартовая страница</h1>
+      <div>
+         Стартовая страница
       </div>
     );
   }
-});
+}
 
 export default Home;

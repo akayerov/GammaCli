@@ -1,6 +1,7 @@
 import { default as React,  Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 // import 'antd/dist/antd.css';
@@ -10,21 +11,22 @@ const SubMenu = Menu.SubMenu;
 
 import LoginModal from '../LoginModal';
 import store from '../../store';
-
+/*
 function displayName() {
 //  console.log(store.getState().auth.displayname);
   return store.getState().auth.displayname;
 //  return this.props.displayname;
 }
-
+*/
 
 class MainLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayname:  displayName(),
+//      displayname:  displayName(),
       collapsed: false,
-      mode: 'inline'
+      mode: 'inline',
+      current: '1'
     };
   }
   onCollapse = (collapsed) => {
@@ -33,6 +35,19 @@ class MainLayout extends Component {
       collapsed,
       mode: collapsed ? 'vertical' : 'inline'
     });
+  }
+  handleClick = (e) => {
+    console.log('click ', e);
+    this.setState({
+      current: e.key
+    });
+    if (e.key === '1') {
+      console.log('Тест');
+      browserHistory.push('/table1');
+    } else if (e.key === '2') {
+      console.log('RecordList');
+      browserHistory.push('/records');
+    }
   }
 
   render() {
@@ -44,14 +59,20 @@ class MainLayout extends Component {
           onCollapse={this.onCollapse}
         >
           <div className='logo' />
-          <Menu theme='dark' mode={this.state.mode} defaultSelectedKeys={[ '6' ]}>
+          <Menu theme='dark' mode={this.state.mode}
+            onClick={this.handleClick}
+            defaultOpenKeys={[ 'sub1' ]}
+            selectedKeys={[ this.state.current ]}
+            mode={this.state.mode}
+            defaultSelectedKeys={[ '6' ]}
+
+          >
             <SubMenu
               key='sub1'
-              title={<span><Icon type='user' /><span className='nav-text'>User</span></span>}
+              title={<span><Icon type='file' /><span className='nav-text'>Документы</span></span>}
             >
-              <Menu.Item key='1'>Tom</Menu.Item>
-              <Menu.Item key='2'>Bill</Menu.Item>
-              <Menu.Item key='3'>Alex</Menu.Item>
+              <Menu.Item key='1'>Тест</Menu.Item>
+              <Menu.Item key='2'>Запись</Menu.Item>
             </SubMenu>
             <SubMenu
               key='sub2'

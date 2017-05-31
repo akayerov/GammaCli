@@ -1,17 +1,19 @@
 import { combineReducers } from 'redux';
 
 // Reducers
-import userReducer from './user-reducer';
 import authReducer from './auth';
 import privateReducer from './private';
 import recordsReducer from '../components/Records/records-reducer';
+import recordReducer from '../components/Record/record-reducer';
+import palselReducer from '../components/Patients/PalSelList-reducer';
 
 // Combine Reducers
 const reducers = combineReducers({
-  userState: userReducer,
   auth:authReducer,
   private: privateReducer,
-  records: recordsReducer
+  records: recordsReducer,
+  record: recordReducer,
+  palSelList:  palselReducer
 });
 
 export default reducers;

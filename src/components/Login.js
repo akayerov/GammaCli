@@ -1,5 +1,5 @@
 import  React from 'react';
-
+import { browserHistory } from 'react-router';
 
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 const FormItem = Form.Item;
@@ -10,8 +10,9 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        window.location.replace('http://localhost:8090/');
+//        window.location.replace('http://localhost:8090/');
 //        window.location = 'http://localhost:8090/';
+        browserHistory.push('/');
       }
     });
   }
