@@ -6,6 +6,7 @@ import privateReducer from './private';
 import recordsReducer from '../components/Records/records-reducer';
 import recordReducer from '../components/Record/record-reducer';
 import palselReducer from '../components/Patients/PalSelList-reducer';
+import selFormReducer from '../components/FormRecord/FormSelect-reducer';
 
 // Combine Reducers
 const reducers = combineReducers({
@@ -13,7 +14,8 @@ const reducers = combineReducers({
   private: privateReducer,
   records: recordsReducer,
   record: recordReducer,
-  palSelList:  palselReducer
+  palSelList:  palselReducer,
+  selectForm:  selFormReducer
 });
 
 export default reducers;

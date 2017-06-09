@@ -1,4 +1,5 @@
 export const GET_RECORDS_DATA = 'GET_RECORDS_DATA';
+
 /*
 export const getRecordsData = () => (dispatch, getState) => {
   console.log('getRecordsData');

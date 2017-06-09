@@ -7,6 +7,7 @@ import MainLayout from './components/layouts/main_layout_i18';
 
 // Pages
 import RecordsList from './components/Records/RecordsList';
+// import RecordForm from './components/Record/RecordFormCont';
 import RecordForm from './components/Record/RecordForm';
 import Login from './components/Login';
 import Home from './components/Home';

@@ -6,7 +6,7 @@ import { getRecordsData } from './records-actions';
 // const DateToday = require('../../util/date');
 import  DateToday  from '../../util/date';
 import { browserHistory } from 'react-router';
-
+import  DateLocale  from '../../util/dateloc';
 
 class RecordsList extends Component {
   constructor(props) {
@@ -90,7 +90,14 @@ class RecordsList extends Component {
     }, {
       title: 'Дата направления',
       dataIndex: 'date_rec',
-      key: 'date_rec'
+      key: 'date_rec',
+      render(text, record) {
+        return (
+          <span>
+            {DateLocale(text)}
+          </span>
+        );
+      }
     }, {
       title: 'МО наименование',
       dataIndex: 'mo.name',
@@ -129,7 +136,14 @@ class RecordsList extends Component {
     }, {
       title: 'Дата прихода',
       dataIndex: 'date_fact',
-      key: 'date_fact'
+      key: 'date_fact',
+      render(text, record) {
+        return (
+          <span>
+            {DateLocale(text)}
+          </span>
+        );
+      }
     }, {
       title: 'Action',
       key: 'action',

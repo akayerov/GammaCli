@@ -21,4 +21,5 @@ const DateToday = () => {
   return d.toLocaleFormat('%y-%m-%d');
 };
 
+
 module.exports = DateToday;
