@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Table, Icon, Badge, Button } from 'antd';
+import { Table, Icon, Badge, Button, Popconfirm, message } from 'antd';
 import { connect } from 'react-redux';
 
 import { getRecordsData } from './records-actions';
+import { updateStateRecordNow } from '../Record/recordUpdate-actions';
 // const DateToday = require('../../util/date');
 import  DateToday  from '../../util/date';
 import { browserHistory } from 'react-router';
@@ -70,6 +71,25 @@ class RecordsList extends Component {
   editRecord = (id) => {
     console.log(id);
     browserHistory.push(`/record/${id}`);
+  };
+// пацинт пришел
+  finishRecord = (mode, id) => {
+    console.log('finishRecord', id);
+    this.props.updateStateRecordNow(mode, id);
+  // this.props.getRecordsData();
+  };
+
+  refreshRecord = () => {
+    this.props.getRecordsData();
+  };
+  confirm = (id) => {
+    console.log('deleteRecord', id);
+    message.success('Click on Yes');
+    this.props.updateStateRecordNow(2, id);  // временное решения для удаления записи
+  };
+  cancel = (e) => {
+    console.log(e);
+    message.error('Click on No');
   };
 
   render() {
@@ -151,6 +171,14 @@ class RecordsList extends Component {
       render: (text, record) => (
         <span>
           <Button onClick= {() => this.editRecord(record.id)}>Edit</Button>
+          <Button onClick= {() => this.finishRecord(0, record.id)}>Finish</Button>
+          <Button onClick= {() => this.finishRecord(1, record.id)}>Revert</Button>
+          <Popconfirm title='Are you sure delete this task?'
+            onConfirm={() => this.confirm(record.id)}
+            onCancel={this.cancel} okText='Yes' cancelText='No'
+          >
+            <Button>Delete</Button>
+          </Popconfirm>
         </span>
       )
     } ];
@@ -167,6 +195,7 @@ class RecordsList extends Component {
           <Button onClick={this.setNameSortUP}>Sort Name UP</Button>
           <Button onClick={this.setNameSortDOWN}>Sort Name DOWN</Button>
           <Button onClick={this.addRecord}>Add record</Button>
+          <Button onClick={this.refreshRecord}>Refresh</Button>
         </div>
         <Table  rowKey='id' columns={columns} dataSource={this.props.data} onChange={this.handleChange} />
       </div>
@@ -175,4 +204,4 @@ class RecordsList extends Component {
   }
 }
 
-export default connect(state => ({ data: state.records }), { getRecordsData })(RecordsList);
+export default connect(state => ({ data: state.records }), { getRecordsData, updateStateRecordNow  })(RecordsList);
