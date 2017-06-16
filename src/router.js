@@ -9,6 +9,7 @@ import MainLayout from './components/layouts/main_layout_i18';
 import RecordsList from './components/Records/RecordsList';
 // import RecordForm from './components/Record/RecordFormCont';
 import RecordForm from './components/Record/RecordForm';
+// import Login from './components/Login';
 import Login from './components/Login';
 import Home from './components/Home';
 import Private from './components/Private';
@@ -26,14 +27,21 @@ const RouterContainer = ({ logout }) => (
   <Router history={browserHistory}>
     <Route component={MainLayout}>
       <Route path='/' component={Home} />
-      <Route path='login'  component={Login} />
+      <Route path='login'  component={LoginModal} />
       <Route path='logout' onEnter={() => logout()}>
         <IndexRedirect to='/' />
       </Route>
       <Route path='table1'>
         <IndexRoute component={Table1} />
       </Route>
-      <Route path='records'>
+      <Route path='records'
+        onEnter={() => {
+          if (!isLogged()) {
+            notification.error({ message: 'You must be autentificated' });
+            browserHistory.push('/login');
+          }
+        }}
+      >
         <IndexRoute component={RecordsList} />
       </Route>
       <Route path='record/:id'>
