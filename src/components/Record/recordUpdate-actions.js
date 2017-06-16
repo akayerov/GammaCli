@@ -37,14 +37,20 @@ function encodeBody(getState, flagAdd) {
   sParam += `idPat=${idPat}&lname=${lname}&fname=${fname}&sname=${sname}&`;
   sParam += `city=${city}&street=${street}&house=${house}&kvart=${kvart}&`;
   sParam += `date_b=${dateBD}&`;
-  sParam += `state=${state}&moId=${moId}&patientId=${patientId}`;
 
   // незаполненные поля даты
+  // если фактическая дата присуствует - состояние автоматически становится 1
   if (getState().selectForm.date_fact.value != '')    {
     const dateFact = encodeURIComponent(DateYMD(getState().selectForm.date_fact.value));
 
-    sParam += `&date_fact=${dateFact}`;
+    state = 1;
+    sParam += `date_fact=${dateFact}&`;
+    console.log('state:', state);
   }
+
+  sParam += `state=${state}&moId=${moId}&patientId=${patientId}`;
+  console.log('sParam:', sParam);
+
   return { count:1, value: sParam };
 }
 // akk это полный аналог переписанный в другой нотации

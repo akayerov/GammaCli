@@ -109,6 +109,17 @@ class RecordsForm extends Component {
     console.log('data', data);
     console.log('patName', patName);
     console.log('patObj', patObj);
+
+// права редактирования полей
+    const role = this.props.user.role;
+    const disabled = {};
+
+    if (role > 0)      {
+      disabled.dateFact = false;
+    }    else      {
+      disabled.dateFact = true;
+    }
+    console.log('disabled', disabled);
 // пример работающего Select и др
 /*
     <Select
@@ -183,6 +194,7 @@ class RecordsForm extends Component {
         />
         Дата фактического поступления
         <DatePicker
+          disabled = {disabled.dateFact}
           format='DD-MM-YYYY'
           placeholder='Выберите дату'
           onChange={(momentObj, dateString) => this.onDateRecChange('date_fact', momentObj, dateString)}
@@ -212,5 +224,5 @@ class RecordsForm extends Component {
   }
 }
 
-export default connect(state => ({ data: state.record, patlist: state.palSelList, selForm:state.selectForm }),
+export default connect(state => ({ data: state.record, patlist: state.palSelList, selForm:state.selectForm,  user: state.auth }),
       { getRecord, getPatSelList, setFormField, updateRecord })(RecordsForm);

@@ -99,6 +99,7 @@ class RecordsList extends Component {
 
     sortedInfo = sortedInfo || {};
     filteredInfo = filteredInfo || {};
+    const role = this.props.user.role;
 
     const columns = [ {
       title: 'Номер',
@@ -171,14 +172,22 @@ class RecordsList extends Component {
       render: (text, record) => (
         <span>
           <Button onClick= {() => this.editRecord(record.id)}>Edit</Button>
-          <Button onClick= {() => this.finishRecord(0, record.id)}>Finish</Button>
-          <Button onClick= {() => this.finishRecord(1, record.id)}>Revert</Button>
-          <Popconfirm title='Are you sure delete this task?'
-            onConfirm={() => this.confirm(record.id)}
-            onCancel={this.cancel} okText='Yes' cancelText='No'
-          >
-            <Button>Delete</Button>
-          </Popconfirm>
+          {role > 0  ? (
+            <span>
+              <Button onClick= {() => this.finishRecord(0, record.id)}>Finish</Button>
+              <Button onClick= {() => this.finishRecord(1, record.id)}>Revert</Button>
+            </span>
+          ) : (
+            <span>
+              <Popconfirm title='Are you sure delete this task?'
+                onConfirm={() => this.confirm(record.id)}
+                onCancel={this.cancel} okText='Yes' cancelText='No'
+              >
+                <Button>Delete</Button>
+              </Popconfirm>
+            </span>
+          )}
+
         </span>
       )
     } ];
@@ -204,4 +213,4 @@ class RecordsList extends Component {
   }
 }
 
-export default connect(state => ({ data: state.records }), { getRecordsData, updateStateRecordNow  })(RecordsList);
+export default connect(state => ({ data: state.records, user: state.auth }), { getRecordsData, updateStateRecordNow  })(RecordsList);

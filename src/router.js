@@ -27,7 +27,7 @@ const RouterContainer = ({ logout }) => (
   <Router history={browserHistory}>
     <Route component={MainLayout}>
       <Route path='/' component={Home} />
-      <Route path='login'  component={LoginModal} />
+      <Route path='login'  component={Login} />
       <Route path='logout' onEnter={() => logout()}>
         <IndexRedirect to='/' />
       </Route>
