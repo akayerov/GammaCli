@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
 // Reducers
 import authReducer from './auth';
@@ -15,7 +16,8 @@ const reducers = combineReducers({
   records: recordsReducer,
   record: recordReducer,
   palSelList:  palselReducer,
-  selectForm:  selFormReducer
+  selectForm:  selFormReducer,
+  form: formReducer
 });
 
 export default reducers;

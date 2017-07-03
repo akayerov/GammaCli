@@ -9,6 +9,10 @@ import MainLayout from './components/layouts/main_layout_i18';
 import RecordsList from './components/Records/RecordsList';
 // import RecordForm from './components/Record/RecordFormCont';
 import RecordForm from './components/Record/RecordForm';
+import RecordReduxForm1Container from './components/ReduxForm/ReduxForm1Container';
+import RecordReduxForm2Container from './components/ReduxForm/ReduxForm2Container';
+import RecordReduxForm3Container from './components/ReduxForm/ReduxForm3_1Container';
+
 // import Login from './components/Login';
 import Login from './components/Login';
 import Home from './components/Home';
@@ -46,6 +50,15 @@ const RouterContainer = ({ logout }) => (
       </Route>
       <Route path='record/:id'>
         <IndexRoute component={RecordForm} />
+      </Route>
+      <Route path='record/Redux1/:id'>
+        <IndexRoute component={RecordReduxForm1Container} />
+      </Route>
+      <Route path='record/Redux2/:id'>
+        <IndexRoute component={RecordReduxForm2Container} />
+      </Route>
+      <Route path='record/Redux3/:id'>
+        <IndexRoute component={RecordReduxForm3Container} />
       </Route>
       <Route
         path='private'

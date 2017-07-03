@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Icon, Badge, Button, Popconfirm, message } from 'antd';
+import { Table, Icon, Badge, Button, Popconfirm, message, Popover } from 'antd';
 import { connect } from 'react-redux';
 
 import { getRecordsData } from './records-actions';
@@ -72,6 +72,18 @@ class RecordsList extends Component {
     console.log(id);
     browserHistory.push(`/record/${id}`);
   };
+  editRecordRedux1 = (id) => {
+    console.log(id);
+    browserHistory.push(`/record/Redux1/${id}`);
+  };
+  editRecordRedux2 = (id) => {
+    console.log(id);
+    browserHistory.push(`/record/Redux2/${id}`);
+  };
+  editRecordRedux3 = (id) => {
+    console.log(id);
+    browserHistory.push(`/record/Redux3/${id}`);
+  };
 // пацинт пришел
   finishRecord = (mode, id) => {
     console.log('finishRecord', id);
@@ -100,7 +112,13 @@ class RecordsList extends Component {
     sortedInfo = sortedInfo || {};
     filteredInfo = filteredInfo || {};
     const role = this.props.user.role;
-
+    const contentAction = (
+      <div>
+        <div><a onClick={this.hide}>Action1</a></div>
+        <div><a onClick={this.hide}>Action2</a></div>
+        <div><a onClick={this.hide}>Action3</a></div>
+      </div>
+    );
     const columns = [ {
       title: 'Номер',
       dataIndex: 'id',
@@ -187,7 +205,20 @@ class RecordsList extends Component {
               </Popconfirm>
             </span>
           )}
-
+          <span className='ant-divider' />
+          <Popover
+            content={
+              <div>
+                <div><a onClick= {() => this.editRecordRedux1(record.id)}>Redux Form 1</a></div>
+                <div><a onClick= {() => this.editRecordRedux2(record.id)}>Redux Form 2</a></div>
+                <div><a onClick= {() => this.editRecordRedux3(record.id)}>Redux Form 3</a></div>
+              </div>
+            }
+            title='List Action'
+            trigger='click'
+          >
+            <Button>Other Action</Button>
+          </Popover>
         </span>
       )
     } ];
