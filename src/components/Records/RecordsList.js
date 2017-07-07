@@ -68,6 +68,9 @@ class RecordsList extends Component {
   addRecord = () => {
     browserHistory.push('/record/add');
   };
+  addRecordRedux3 = () => {
+    browserHistory.push('/record/Redux3/add');
+  };
   editRecord = (id) => {
     console.log(id);
     browserHistory.push(`/record/${id}`);
@@ -194,6 +197,12 @@ class RecordsList extends Component {
             <span>
               <Button onClick= {() => this.finishRecord(0, record.id)}>Finish</Button>
               <Button onClick= {() => this.finishRecord(1, record.id)}>Revert</Button>
+              <Popconfirm title='Are you sure delete this task?'
+                onConfirm={() => this.confirm(record.id)}
+                onCancel={this.cancel} okText='Yes' cancelText='No'
+              >
+                <Button>Delete</Button>
+              </Popconfirm>
             </span>
           ) : (
             <span>
@@ -235,6 +244,7 @@ class RecordsList extends Component {
           <Button onClick={this.setNameSortUP}>Sort Name UP</Button>
           <Button onClick={this.setNameSortDOWN}>Sort Name DOWN</Button>
           <Button onClick={this.addRecord}>Add record</Button>
+          <Button onClick={this.addRecordRedux3}>Add record Redux3</Button>
           <Button onClick={this.refreshRecord}>Refresh</Button>
         </div>
         <Table  rowKey='id' columns={columns} dataSource={this.props.data} onChange={this.handleChange} />

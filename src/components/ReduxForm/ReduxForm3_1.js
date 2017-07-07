@@ -3,16 +3,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 // import { load as loadAccount } from './account';
-import { getRecord } from '../Record/record-actions';
-import {  DatePicker } from 'antd';
+// import { getRecord } from '../Record/record-actions';
+//! !!! Тест
+import { getRecord } from './record-actionsReduxForm';
+import {  DatePicker, Button, Icon, message as Mess } from 'antd';
+
 import moment from 'moment';
 import  DateLocale  from '../../util/dateloc';
+import { browserHistory } from 'react-router';
 
 
 const dateFormat = 'DD/MM/YYYY';
 
 const tooOld = value =>
   value && value < '2016-05-31' ? 'To more old date' : undefined;
+
+const required = value => (value ? undefined : 'Обязательное поле');
+/*
+<div>
+  message.error('Форма не может быть сохранена. Исправьте ошибки!');
+</div>
+*/
+const failSubmit = errors => (
+  <div>
+    Mess.error('Форма не может быть сохранена. Исправьте ошибки!');
+  </div>
+);
 
 const renderField = ({
   input,
@@ -25,7 +41,7 @@ const renderField = ({
     <div>
       <input {...input} placeholder={label} type={type} />
       {touched &&
-        ((error && <span>{error}</span>) ||
+        ((error && <span><Icon type='question-circle'  style={{ fontSize: 16, color: '#08c' }} /> {error}</span>) ||
           (warning && <span>{warning}</span>))}
     </div>
   </div>
@@ -36,7 +52,11 @@ const onOk = (value) => {
 
 const handleDataChange = (momentObj, input) => {
   console.log('Selected Time: ', momentObj);
-  input.onChange(momentObj._d);
+  if (momentObj)    {
+    input.onChange(momentObj._d);
+  }  else    {
+    input.onChange('');
+  }
 };
 
 // onChange={(momentObj, dateString) => handleDataChange(momentObj, dateString)}
@@ -64,47 +84,126 @@ const renderDateField = ({
     </div>
   </div>
   );
+// Конвертирование пустых дат!
+const renderDateFieldMod = ({
+    input,
+    label,
+    type,
+    meta: { touched, error, warning }
+  }) => {
+  let  dateVal =  input.value;
+
+  dateVal = moment(DateLocale(dateVal), dateFormat);
+  if (dateVal._i == '' || dateVal._i == 'NaN/NaN/NaN') dateVal = null;
+  console.log('DateVal:', dateVal);
+
+  return (
+    <div>
+      <label>{label}</label>
+      <div>
+        <DatePicker
+          placeholder='Выберите дату'
+          format={dateFormat}
+          value={dateVal}
+          onChange={(momentObj, dateString) => handleDataChange(momentObj, input)}
+          onOk={onOk}
+        />
+        {touched &&
+          ((error && <span>{error}</span>) ||
+            (warning && <span>{warning}</span>))}
+      </div>
+    </div>
+  );
+};
 
 class InitializeFromStateForm extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    console.log('Params:', this.props.params);
     this.props.getRecord(this.props.params.id);
   }
-
+  enterToList() {
+    browserHistory.push('/records');
+  }
   render() {
-    const { handleSubmit, getRecord, pristine, reset, submitting } = this.props;
+    const { handleSubmit, getRecord, pristine, reset, submitting, onSubmit1 } = this.props;
+    let modeAdd = false;
+
+    if (this.props.params.id === 'add')      {
+      modeAdd = true;
+    }
+//    <button type='submit' disabled={pristine || submitting}>Submit</button>
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit((value) => onSubmit1(value, modeAdd))}>
         <div>
           <label>id</label>
           <div>
-            <Field name='id' component='input' type='text' placeholder='id'/>
+            <Field name='id' component='input' type='text' placeholder='id' disabled/>
           </div>
-          <label>Дата Нач</label>
-          <div>
-            <Field name='date_rec' component={renderDateField} type='text' placeholder='' warn={tooOld} />
-
-          </div>
+          <label>Пациент</label>
           <label>Фамилия</label>
           <div>
-            <Field name='patient.lname' component='input' type='text' placeholder='Фамилия'/>
+            <Field name='patient.lname' component={renderField} type='text' placeholder='' validate={required}/>
           </div>
           <label>Имя</label>
           <div>
-            <Field name='patient.fname' component='input' type='text' placeholder='Имя'/>
+            <Field name='patient.fname' component={renderField} type='text' placeholder='' validate={required}/>
           </div>
           <label>Отчество</label>
           <div>
-            <Field name='patient.sname' component='input' type='text' placeholder='Отчество'/>
+            <Field name='patient.sname' component={renderField} type='text' placeholder='' validate={required}/>
+          </div>
+          <label>Дата Рожд</label>
+          <div>
+            <Field name='patient.date_b' component={renderDateFieldMod} type='text' placeholder='' />
+          </div>
+          <label>Город (нас. пункт)</label>
+          <div>
+            <Field name='patient.city' component='input' type='text' placeholder='' />
+          </div>
+          <label>Улица</label>
+          <div>
+            <Field name='patient.street' component='input' type='text' placeholder='' />
+          </div>
+          <label>Дом</label>
+          <div>
+            <Field name='patient.house' component='input' type='text' placeholder='' />
+          </div>
+          <label>Квартира</label>
+          <div>
+            <Field name='patient.kvart' component='input' type='text' placeholder='' />
+          </div>
+          <label>Дата Записи</label>
+          <div>
+            <Field name='date_rec' component={renderDateFieldMod} type='text' placeholder='' warn={tooOld} />
+          </div>
+          <label>Дата Контрольная</label>
+          <div>
+            <Field name='date_end' component={renderDateFieldMod} type='text' placeholder=''/>
+          </div>
+          <label>Дата поступления</label>
+          <div>
+            <Field name='date_fact' component={renderDateFieldMod} type='text' placeholder=''/>
+          </div>
+          <label>Состояние</label>
+          <div>
+            <Field name='state' component='input' type='text' placeholder='' disabled/>
+          </div>
+          <label>moId</label>
+          <div>
+            <Field name='moId'  component='input' type='text' placeholder='' disabled/>
           </div>
         </div>
         <div>
-          <button type='submit' disabled={pristine || submitting}>Submit</button>
-          <button type='button' disabled={pristine || submitting} onClick={reset}>Undo Changes</button>
+          <Button type='primary' htmlType='submit' disabled={pristine || submitting}>Submit</Button>
+          <Button type='default' htmlType='button' disabled={pristine || submitting}  onClick={reset}>Undo Changes</Button>
+          <Button type='default'
+            onClick={() => this.enterToList()}
+          >
+            To List
+          </Button>
         </div>
       </form>
     );
@@ -112,7 +211,12 @@ class InitializeFromStateForm extends Component {
 }
 // Decorate with reduxForm(). It will read the initialValues prop provided by connect()
 InitializeFromStateForm = reduxForm({
-  form: 'initFromState'  // a unique identifier for this form
+  form: 'initFromState',  // a unique identifier for this form
+  enableReinitialize : { true },
+  initialValues : {
+    'patient.fname' : 'Вася'
+  },
+  onSubmitFail :  failSubmit
 })(InitializeFromStateForm);
 
 // You have to connect() to any reducers that you wish to connect to yourself
@@ -120,7 +224,7 @@ InitializeFromStateForm = connect(
   state => ({
     initialValues: state.record // pull initial values from account reducer
   }),
-  { getRecord }               // bind account loading action creator
+  { getRecord }               // bind  loading action creator
 )(InitializeFromStateForm);
 
 export default InitializeFromStateForm;

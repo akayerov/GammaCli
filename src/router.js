@@ -11,7 +11,7 @@ import RecordsList from './components/Records/RecordsList';
 import RecordForm from './components/Record/RecordForm';
 import RecordReduxForm1Container from './components/ReduxForm/ReduxForm1Container';
 import RecordReduxForm2Container from './components/ReduxForm/ReduxForm2Container';
-import RecordReduxForm3Container from './components/ReduxForm/ReduxForm3_1Container';
+import RecordReduxForm3_1Container from './components/ReduxForm/ReduxForm3_1Container';
 
 // import Login from './components/Login';
 import Login from './components/Login';
@@ -58,7 +58,7 @@ const RouterContainer = ({ logout }) => (
         <IndexRoute component={RecordReduxForm2Container} />
       </Route>
       <Route path='record/Redux3/:id'>
-        <IndexRoute component={RecordReduxForm3Container} />
+        <IndexRoute component={RecordReduxForm3_1Container} />
       </Route>
       <Route
         path='private'
