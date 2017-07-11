@@ -6,7 +6,7 @@ import { Field, reduxForm } from 'redux-form';
 // import { getRecord } from '../Record/record-actions';
 //! !!! Тест
 import { getRecord } from './record-actionsReduxForm';
-import {  DatePicker, Button, Icon, message as Mess } from 'antd';
+import {  DatePicker, Button, Icon, message } from 'antd';
 
 import moment from 'moment';
 import  DateLocale  from '../../util/dateloc';
@@ -24,10 +24,9 @@ const required = value => (value ? undefined : 'Обязательное пол�
   message.error('Форма не может быть сохранена. Исправьте ошибки!');
 </div>
 */
-const failSubmit = errors => (
-  <div>
-    Mess.error('Форма не может быть сохранена. Исправьте ошибки!');
-  </div>
+const failSubmit = (errors) => (
+//  message.success('Click on Yes')
+    message.error('Исправьте ошибки ввода до сохранения')
 );
 
 const renderField = ({
@@ -85,16 +84,18 @@ const renderDateField = ({
   </div>
   );
 // Конвертирование пустых дат!
+// добавлено свойство disabled
 const renderDateFieldMod = ({
     input,
     label,
     type,
-    meta: { touched, error, warning }
+    meta: { touched, error, warning },
+    disabled
   }) => {
   let  dateVal =  input.value;
 
   dateVal = moment(DateLocale(dateVal), dateFormat);
-  if (dateVal._i == '' || dateVal._i == 'NaN/NaN/NaN') dateVal = null;
+  if (dateVal._i == 'NaN/NaN/NaN') dateVal = null;
   console.log('DateVal:', dateVal);
 
   return (
@@ -102,6 +103,7 @@ const renderDateFieldMod = ({
       <label>{label}</label>
       <div>
         <DatePicker
+          disabled = {disabled}
           placeholder='Выберите дату'
           format={dateFormat}
           value={dateVal}
@@ -133,6 +135,18 @@ class InitializeFromStateForm extends Component {
     if (this.props.params.id === 'add')      {
       modeAdd = true;
     }
+    console.log('Props:', this.props);
+    // права редактирования полей
+    const role = this.props.user.role;
+    const disabled = {};
+
+    if (role > 0)      {
+      disabled.dateFact = false;
+    }    else      {
+      disabled.dateFact = true;
+    }
+    console.log('disabled', disabled);
+
 //    <button type='submit' disabled={pristine || submitting}>Submit</button>
 
     return (
@@ -185,7 +199,10 @@ class InitializeFromStateForm extends Component {
           </div>
           <label>Дата поступления</label>
           <div>
-            <Field name='date_fact' component={renderDateFieldMod} type='text' placeholder=''/>
+            <Field
+              disabled = {disabled.dateFact}
+              name='date_fact' component={renderDateFieldMod} type='text' placeholder=''
+            />
           </div>
           <label>Состояние</label>
           <div>
@@ -222,7 +239,8 @@ InitializeFromStateForm = reduxForm({
 // You have to connect() to any reducers that you wish to connect to yourself
 InitializeFromStateForm = connect(
   state => ({
-    initialValues: state.record // pull initial values from account reducer
+    initialValues: state.record, // pull initial values from account reducer
+    user: state.auth
   }),
   { getRecord }               // bind  loading action creator
 )(InitializeFromStateForm);

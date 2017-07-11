@@ -22,11 +22,20 @@ export function getRecord(id) {
          console.log('getRecordReduxForm:', json.patient.lname);
          console.log('date_factReduxForm:', json.date_fact);
   // заполнение store полей ввода значениями из базы данных
-         let dateFact = '';
-
-         if (json.date_fact !== null && json.date_fact !== '1899-12-31T21:00:00.000Z') {
-           dateFact = json.date_fact;
+         if (json.date_fact === '1900-01-01T00:00:00.000Z') {
+           json.date_fact =  null;
          }
+         if (json.date_rec === '1900-01-01T00:00:00.000Z') {
+           json.date_rec = null;
+         }
+         if (json.date_end === '1900-01-01T00:00:00.000Z') {
+           json.date_end = null;
+         }
+         if (json.patient.date_b === '1900-01-01T00:00:00.000Z') {
+           json.date_end = null;
+         }
+
+
          dispatch({ type:GET_RECORD, data: json.result || json });
        })
        .catch(err => alert(err.message || err));

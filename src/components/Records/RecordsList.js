@@ -8,6 +8,7 @@ import { updateStateRecordNow } from '../Record/recordUpdate-actions';
 import  DateToday  from '../../util/date';
 import { browserHistory } from 'react-router';
 import  DateLocale  from '../../util/dateloc';
+import  exportExcel  from '../../util/ExportExcel';
 
 class RecordsList extends Component {
   constructor(props) {
@@ -246,6 +247,7 @@ class RecordsList extends Component {
           <Button onClick={this.addRecord}>Add record</Button>
           <Button onClick={this.addRecordRedux3}>Add record Redux3</Button>
           <Button onClick={this.refreshRecord}>Refresh</Button>
+          <Button onClick={exportExcel}>Экспорт в Excel</Button>
         </div>
         <Table  rowKey='id' columns={columns} dataSource={this.props.data} onChange={this.handleChange} />
       </div>

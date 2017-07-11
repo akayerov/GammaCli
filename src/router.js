@@ -7,7 +7,6 @@ import MainLayout from './components/layouts/main_layout_i18';
 
 // Pages
 import RecordsList from './components/Records/RecordsList';
-// import RecordForm from './components/Record/RecordFormCont';
 import RecordForm from './components/Record/RecordForm';
 import RecordReduxForm1Container from './components/ReduxForm/ReduxForm1Container';
 import RecordReduxForm2Container from './components/ReduxForm/ReduxForm2Container';
@@ -48,6 +47,7 @@ const RouterContainer = ({ logout }) => (
       >
         <IndexRoute component={RecordsList} />
       </Route>
+
       <Route path='record/:id'>
         <IndexRoute component={RecordForm} />
       </Route>

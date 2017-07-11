@@ -40,17 +40,21 @@ function encodeBodyRF(getState, flagAdd, value) {
   }
   const dateEnd = encodeURIComponent(DateYMD(value.date_end || null));
 
+// 1900-01-01 решает проблему, когда ранее внесенную дату позднее надо удалить -
+// передавать null не получается, sequalize не пропускает
   console.log('TEST value.date_end:', value.date_end, dateEnd);
   if (dateEnd !== '')    {
     sParam += `date_end=${dateEnd}&`;
   }  else {
-    sParam += 'date_end=2000-01-01&';
+    sParam += 'date_end=1900-01-01&';
   }
 
   const dateB = encodeURIComponent(DateYMD(value.patient.date_b || null));
 
   if (dateB !== '')    {
     sParam += `date_b=${dateB}&`;
+  } else {
+    sParam += 'date_b=1900-01-01&';
   }
 
   // если фактическая дата присуствует - состояние автоматически становится 1
@@ -60,6 +64,9 @@ function encodeBodyRF(getState, flagAdd, value) {
     state = 1;
     sParam += `date_fact=${dateFact}&`;
     console.log('state:', state);
+  } else {
+    state = 0;
+    sParam += 'date_fact=1900-01-01&';
   }
 
   sParam += `state=${state}&moId=${moId}&patientId=${patientId}`;
