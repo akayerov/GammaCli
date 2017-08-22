@@ -1,6 +1,8 @@
 import store from '../store';
+import FileSaver from 'file-saver';
 
-
+// method: 'get'
+// 'Content-Type': 'application/json'
 const  exportExcel = () => {
   console.log('Export to Excel');
   fetch('//localhost:3000/export', {
@@ -8,8 +10,13 @@ const  exportExcel = () => {
       Authorization: store.getState().auth.token
     }
   })
- .then()
- .catch(err => alert(err.message || err));
+  .then((response) => {
+    console.log('Response');
+    return response.blob();
+  }).then((blob) => {
+    console.log('Save filter');
+    FileSaver.saveAs(blob, 'Test1.xlsx');
+  });
 };
 
 export default exportExcel;

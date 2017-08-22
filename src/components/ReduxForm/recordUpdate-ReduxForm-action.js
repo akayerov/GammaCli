@@ -11,6 +11,7 @@ function encodeBodyRF(getState, flagAdd, value) {
   const street = encodeURIComponent(value.patient.street || '');
   const house = encodeURIComponent(value.patient.house || '');
   const kvart = encodeURIComponent(value.patient.kvart || '');
+  const contact = encodeURIComponent(value.patient.contact || '');
 
   console.log('encodeBodyRF:Value:', value);
   let state = 0,
@@ -30,7 +31,7 @@ function encodeBodyRF(getState, flagAdd, value) {
   let sParam = '';
 
   sParam += `idPat=${idPat}&lname=${lname}&fname=${fname}&sname=${sname}&`;
-  sParam += `city=${city}&street=${street}&house=${house}&kvart=${kvart}&`;
+  sParam += `city=${city}&street=${street}&house=${house}&kvart=${kvart}&contact=${contact}&`;
 
   // незаполненные поля даты
   const dateRec = encodeURIComponent(DateYMD(value.date_rec || null));

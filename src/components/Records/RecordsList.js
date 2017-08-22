@@ -9,6 +9,9 @@ import  DateToday  from '../../util/date';
 import { browserHistory } from 'react-router';
 import  DateLocale  from '../../util/dateloc';
 import  exportExcel  from '../../util/ExportExcel';
+import  exportExcel2  from '../../util/ExportExcel2';
+import  exportExcel3  from '../../util/ExportExcel3';
+import  exportExcel4  from '../../util/ExportExcel4';
 
 class RecordsList extends Component {
   constructor(props) {
@@ -247,7 +250,10 @@ class RecordsList extends Component {
           <Button onClick={this.addRecord}>Add record</Button>
           <Button onClick={this.addRecordRedux3}>Add record Redux3</Button>
           <Button onClick={this.refreshRecord}>Refresh</Button>
-          <Button onClick={exportExcel}>Экспорт в Excel</Button>
+          <Button onClick={exportExcel}>в Excel1</Button>
+          <Button onClick={exportExcel2}>в Excel2</Button>
+          <Button onClick={exportExcel3}>в Excel3</Button>
+          <Button onClick={exportExcel4}>в Excel4</Button>
         </div>
         <Table  rowKey='id' columns={columns} dataSource={this.props.data} onChange={this.handleChange} />
       </div>

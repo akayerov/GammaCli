@@ -95,7 +95,7 @@ const renderDateFieldMod = ({
   let  dateVal =  input.value;
 
   dateVal = moment(DateLocale(dateVal), dateFormat);
-  if (dateVal._i == 'NaN/NaN/NaN') dateVal = null;
+  if (dateVal._i === 'NN/NaN/NaN') dateVal = null;
   console.log('DateVal:', dateVal);
 
   return (
@@ -188,6 +188,10 @@ class InitializeFromStateForm extends Component {
           <label>Квартира</label>
           <div>
             <Field name='patient.kvart' component='input' type='text' placeholder='' />
+          </div>
+          <label>Контакт</label>
+          <div>
+            <Field name='patient.contact' component='input' type='text' placeholder='' />
           </div>
           <label>Дата Записи</label>
           <div>
