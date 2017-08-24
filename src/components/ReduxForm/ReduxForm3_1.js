@@ -95,11 +95,12 @@ const renderDateFieldMod = ({
   let  dateVal =  input.value;
 
   dateVal = moment(DateLocale(dateVal), dateFormat);
-  if (dateVal._i === 'NN/NaN/NaN') dateVal = null;
-  console.log('DateVal:', dateVal);
+  if (dateVal._i === 'NaN/NaN/NaN') dateVal = null;
+  console.log('dateVal:', dateVal);
 
   return (
     <div>
+
       <label>{label}</label>
       <div>
         <DatePicker
@@ -156,7 +157,6 @@ class InitializeFromStateForm extends Component {
           <div>
             <Field name='id' component='input' type='text' placeholder='id' disabled/>
           </div>
-          <label>Пациент</label>
           <label>Фамилия</label>
           <div>
             <Field name='patient.lname' component={renderField} type='text' placeholder='' validate={required}/>

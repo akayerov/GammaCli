@@ -11,6 +11,8 @@ const SubMenu = Menu.SubMenu;
 
 import LoginModal from '../LoginModal';
 import store from '../../store';
+
+// <Link to='/private'>Private path</Link>
 /*
 function displayName() {
 //  console.log(store.getState().auth.displayname);
@@ -71,43 +73,24 @@ class MainLayout extends Component {
               key='sub1'
               title={<span><Icon type='file' /><span className='nav-text'>Документы</span></span>}
             >
-              <Menu.Item key='1'>Тест</Menu.Item>
-              <Menu.Item key='2'>Запись</Menu.Item>
+              <Menu.Item key='2'>Список направлений</Menu.Item>
             </SubMenu>
-            <SubMenu
-              key='sub2'
-              title={<span><Icon type='team' /><span className='nav-text'>Team</span></span>}
-            >
-              <Menu.Item key='4'>Team 1</Menu.Item>
-              <Menu.Item key='5'>Team 2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key='6'>
-              <span>
-                <Icon type='file' />
-                <span className='nav-text'>File</span>
-              </span>
-            </Menu.Item>
           </Menu>
         </Sider>
         <Layout>
-          <div className='header' style={{ background: '#5ff', minHeight: 36 }} >
-            <h4>Gamma v 0.1</h4>
-            <Link to='/private'>Private path</Link>
+          <div className='header' style={{ background: '#f7629e', minHeight: 36 }} >
+            <h4>Гамма v 0.1</h4>
             <div style={{ float: 'right' }}>
               <LoginModal  displayname={this.props.displayname} />
             </div>
           </div>
-          <Content style={{ margin: '0 16px', overflow: 'initial' }}>
-            <Breadcrumb style={{ margin: '12px 0' }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
+          <Content style={{ margin: '1 1px', overflow: 'initial' }}>
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
               {this.props.children}
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©2016 Created by Ant UED
+            ОЦМП ЯО ©2017 Created by Kayerov A
           </Footer>
         </Layout>
       </Layout>

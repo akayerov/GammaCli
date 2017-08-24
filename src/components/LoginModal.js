@@ -76,7 +76,9 @@ class LoginModal extends React.Component {
   render() {
     return (
       <div>
-        {this.props.displayname}
+        <span style={{ marginRight: '10px' }}>
+          {this.props.displayname}
+        </span>
         {this.props.displayname === '' | this.props.displayname == null ? (
           <Button type='primary' onClick={this.handleShowModal}>Login</Button>
         ) : (

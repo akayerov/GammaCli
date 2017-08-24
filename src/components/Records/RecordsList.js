@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Icon, Badge, Button, Popconfirm, message, Popover } from 'antd';
+import { Table, Icon, Input, Badge, Button, Popconfirm, message, Popover } from 'antd';
 import { connect } from 'react-redux';
 
 import { getRecordsData } from './records-actions';
@@ -18,16 +18,20 @@ class RecordsList extends Component {
     super(props);
     this.state = {
       filteredInfo: null,
-      sortedInfo: null
+      sortedInfo: null,
+      filterDropdownVisible: false,
+      data: this.props.data,
+      searchText: '',
+      filtered: false
     };
   }
 
   componentDidMount() {
-    console.log('Now wiil read data');
+//    console.log('Now wiil read data');
     this.props.getRecordsData();
   }
   handleChange = (pagination, filters, sorter) => {
-    console.log('Various parameters', pagination, filters, sorter);
+//    console.log('Various parameters', pagination, filters, sorter);
     this.setState({
       filteredInfo: filters,
       sortedInfo: sorter
@@ -102,7 +106,7 @@ class RecordsList extends Component {
     this.props.getRecordsData();
   };
   confirm = (id) => {
-    console.log('deleteRecord', id);
+  //  console.log('deleteRecord', id);
     message.success('Click on Yes');
     this.props.updateStateRecordNow(2, id);  // временное решения для удаления записи
   };
@@ -111,10 +115,49 @@ class RecordsList extends Component {
     message.error('Click on No');
   };
 
+  onInputChange = (e) => {
+    this.setState({ searchText: e.target.value });
+  }
+  onSearch = () => {
+    const { searchText } = this.state;
+    const reg = new RegExp(searchText, 'gi');
+
+    this.setState({
+      filterDropdownVisible: false,
+      filtered: !!searchText,
+      data: this.props.data.map((record) => {
+        const match = record.patient.lname.match(reg);
+
+        if (!match) {
+          return null;
+        }
+        return {
+          ...record,
+          name: (
+            <span>
+              {record.patient.lname.split(reg).map((text, i) => (
+                  i > 0 ? [<span className='highlight'>{match[0]}</span>, text] : text
+                ))}
+            </span>
+            )
+        };
+      }).filter(record => !!record)
+    });
+  }
+
+
   render() {
     console.log(this.state);
 
     let { sortedInfo, filteredInfo } = this.state;
+  //  const { data } = this.state.data;
+    let data = [];
+
+    if (this.state.filtered == false) {
+      data = this.props.data;
+    }   else {
+      data = this.state.data;
+    }
 
     sortedInfo = sortedInfo || {};
     filteredInfo = filteredInfo || {};
@@ -153,13 +196,36 @@ class RecordsList extends Component {
       dataIndex: 'patient.lname',
       key: 'patient.lname',
       sorter: (a, b) =>  a.patient.lname.localeCompare(b.patient.lname),
-      sortOrder: sortedInfo.columnKey === 'patient.lname' && sortedInfo.order
+      sortOrder: sortedInfo.columnKey === 'patient.lname' && sortedInfo.order,
+      filterDropdown: (
+        <div className='custom-filter-dropdown'>
+          <Input
+            ref={ele => this.searchInput = ele}
+            placeholder='Фамилия (часть)'
+            value={this.state.searchText}
+            onChange={this.onInputChange}
+            onPressEnter={this.onSearch}
+          />
+          <Button type='primary' onClick={this.onSearch}>Поиск</Button>
+        </div>
+      ),
+      filterIcon: <Icon type='filter' style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }} />,
+      filterDropdownVisible: this.state.filterDropdownVisible,
+      onFilterDropdownVisibleChange: (visible) => {
+        this.setState({
+          filterDropdownVisible: visible
+        }, () => this.searchInput.focus());
+      }
     }, {
       title: 'Имя',
       dataIndex: 'patient.fname',
       key: 'patient.fname'
     }, {
-      title: 'State',
+      title: 'Отчество',
+      dataIndex: 'patient.sname',
+      key: 'patient.sname'
+    }, {
+      title: 'Состояние',
       dataIndex: 'state',
       key: 'state',
       sorter: (a, b) => a.state - b.state,
@@ -180,7 +246,7 @@ class RecordsList extends Component {
         </span>
    )
     }, {
-      title: 'Дата прихода',
+      title: 'Дата факт поступления',
       dataIndex: 'date_fact',
       key: 'date_fact',
       render(text, record) {
@@ -191,7 +257,7 @@ class RecordsList extends Component {
         );
       }
     }, {
-      title: 'Action',
+      title: 'Действия',
       key: 'action',
       width: 360,
       render: (text, record) => (
@@ -236,26 +302,31 @@ class RecordsList extends Component {
       )
     } ];
 
-//          <Button onClick= {browserHistory.push(`/record/${record.id}`)}>Edit</Button>
+// <Button onClick= {browserHistory.push(`/record/${record.id}`)}>Edit</Button>
+// <Button onClick={this.setIdSort}>Sort Id</Button>
+// <Button onClick={this.clearFilters}>Clear filters</Button>
+// <Button onClick={this.clearAll}>Clear filters and sorters</Button>
+// <Button onClick={this.setNameSortUP}>Sort Name UP</Button>
+// <Button onClick={this.setNameSortDOWN}>Sort Name DOWN</Button>
+// <Button onClick={this.addRecord}>Add record</Button>
+// <Button onClick={exportExcel}>в Excel1</Button>
+// <Button onClick={exportExcel2}>в Excel2</Button>
+// <Button onClick={exportExcel4}>в Excel4</Button>
 
     return (
       <div>
-        <h1>RecordsList1</h1>
+        <h2>Список направлений</h2>
         <div className='table-operations'>
-          <Button onClick={this.setIdSort}>Sort Id</Button>
-          <Button onClick={this.clearFilters}>Clear filters</Button>
-          <Button onClick={this.clearAll}>Clear filters and sorters</Button>
-          <Button onClick={this.setNameSortUP}>Sort Name UP</Button>
-          <Button onClick={this.setNameSortDOWN}>Sort Name DOWN</Button>
-          <Button onClick={this.addRecord}>Add record</Button>
-          <Button onClick={this.addRecordRedux3}>Add record Redux3</Button>
-          <Button onClick={this.refreshRecord}>Refresh</Button>
-          <Button onClick={exportExcel}>в Excel1</Button>
-          <Button onClick={exportExcel2}>в Excel2</Button>
-          <Button onClick={exportExcel3}>в Excel3</Button>
-          <Button onClick={exportExcel4}>в Excel4</Button>
+          <Button onClick={this.addRecordRedux3}>Добавить</Button>
+          <Button onClick={this.refreshRecord}>Обновить</Button>
+          <Button onClick={exportExcel3}>в Excel</Button>
         </div>
-        <Table  rowKey='id' columns={columns} dataSource={this.props.data} onChange={this.handleChange} />
+        <Table  rowKey='id'
+          columns={columns}
+          dataSource={data}
+          onChange={this.handleChange}
+          bordered
+        />
       </div>
 
     );
