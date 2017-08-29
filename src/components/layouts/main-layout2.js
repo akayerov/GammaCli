@@ -78,7 +78,7 @@ class MainLayout extends Component {
           </Menu>
         </Sider>
         <Layout>
-          <div className='header' style={{ background: '#f7629e', minHeight: 36 }} >
+          <div className='header' style={{ background: '#f7629e', minHeight: 48 }} >
             <h4>Гамма v 0.1</h4>
             <div style={{ float: 'right' }}>
               <LoginModal  displayname={this.props.displayname} />

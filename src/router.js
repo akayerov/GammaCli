@@ -40,7 +40,7 @@ const RouterContainer = ({ logout }) => (
       <Route path='records'
         onEnter={() => {
           if (!isLogged()) {
-            notification.error({ message: 'You must be autentificated' });
+            notification.error({ message: 'Вы должны быть авторизованы!' });
             browserHistory.push('/login');
           }
         }}

@@ -19,3 +19,7 @@ html {
 .login-form-button {
   width: 100%;
 }
+
+.highlight {
+  color: #f50;
+}

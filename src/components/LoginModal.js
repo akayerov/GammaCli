@@ -70,7 +70,7 @@ class LoginModal extends React.Component {
     this.setState({
       password: e.target.value
     });
-    console.log(this.state.password);
+//    console.log(this.state.password);
   };
 
   render() {
@@ -80,16 +80,16 @@ class LoginModal extends React.Component {
           {this.props.displayname}
         </span>
         {this.props.displayname === '' | this.props.displayname == null ? (
-          <Button type='primary' onClick={this.handleShowModal}>Login</Button>
+          <Button type='primary' onClick={this.handleShowModal}>Вход</Button>
         ) : (
-          <Button type='primary' onClick={this.handleLogout}>Logout</Button>
+          <Button type='primary' onClick={this.handleLogout}>Выход</Button>
         )}
-        <Modal title='Basic Modal' visible={this.state.visible}
+        <Modal title='' visible={this.state.visible}
           onOk={this.handleOk} onCancel={this.handleCancel}
         >
-          <p>User</p>
+          <p>Пользователь</p>
           <Input id='name' onChange={this.handleChange}  placeholder='Username' />
-          <p>Password</p>
+          <p>Пароль</p>
           <Input id='password'onChange={this.handleChange1}  type='password' placeholder='Password'  />
         </Modal>
       </div>

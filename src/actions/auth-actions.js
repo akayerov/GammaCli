@@ -7,7 +7,7 @@ export const handleLogin = (payload) => {
   window.localStorage.setItem('displayname', payload.user.displayname);
   window.localStorage.setItem('moId', payload.user.moId);
   window.localStorage.setItem('role', payload.user.role);
-  notification.success({ message: `Hi, ${payload.user.displayname} (${payload.user.username})` });
+//  notification.success({ message: `Hi, ${payload.user.displayname} (${payload.user.username})` });
   return ({ type: GET_LOGIN_RESPONSE, payload });
 };
 export const logout = () => {
@@ -15,6 +15,6 @@ export const logout = () => {
   window.localStorage.removeItem('displayname');
   window.localStorage.removeItem('moId');
   window.localStorage.removeItem('role');
-  notification.info({ message: 'Bye bye!' });
+//  notification.info({ message: 'Bye bye!' });
   return ({ type: LOGOUT });
 };

@@ -126,6 +126,7 @@ class RecordsList extends Component {
       filterDropdownVisible: false,
       filtered: !!searchText,
       data: this.props.data.map((record) => {
+        console.log('onSearch:', record);
         const match = record.patient.lname.match(reg);
 
         if (!match) {
@@ -133,7 +134,7 @@ class RecordsList extends Component {
         }
         return {
           ...record,
-          name: (
+          'patient.lname': (
             <span>
               {record.patient.lname.split(reg).map((text, i) => (
                   i > 0 ? [<span className='highlight'>{match[0]}</span>, text] : text
@@ -147,8 +148,6 @@ class RecordsList extends Component {
 
 
   render() {
-    console.log(this.state);
-
     let { sortedInfo, filteredInfo } = this.state;
   //  const { data } = this.state.data;
     let data = [];
@@ -233,7 +232,7 @@ class RecordsList extends Component {
       render: (text, record) => (
         <span>
           {text == '1' ? (
-            <Badge status='success' text='Завершено'/>
+            <Badge status='success' text='Поступил'/>
       ) : (
         <span>
           {record.date_end < DateToday() ? (
@@ -262,45 +261,43 @@ class RecordsList extends Component {
       width: 360,
       render: (text, record) => (
         <span>
-          <Button onClick= {() => this.editRecord(record.id)}>Edit</Button>
+          <Button onClick= {() => this.editRecordRedux3(record.id)}>Изменить</Button>
           {role > 0  ? (
             <span>
-              <Button onClick= {() => this.finishRecord(0, record.id)}>Finish</Button>
-              <Button onClick= {() => this.finishRecord(1, record.id)}>Revert</Button>
-              <Popconfirm title='Are you sure delete this task?'
-                onConfirm={() => this.confirm(record.id)}
-                onCancel={this.cancel} okText='Yes' cancelText='No'
-              >
-                <Button>Delete</Button>
-              </Popconfirm>
+              <Button onClick= {() => this.finishRecord(0, record.id)}>Принять</Button>
+              <Button onClick= {() => this.finishRecord(1, record.id)}>Отменить</Button>
             </span>
           ) : (
             <span>
-              <Popconfirm title='Are you sure delete this task?'
+              <Popconfirm title='Удалить запись?'
                 onConfirm={() => this.confirm(record.id)}
-                onCancel={this.cancel} okText='Yes' cancelText='No'
+                onCancel={this.cancel} okText='Да' cancelText='Нет'
               >
-                <Button>Delete</Button>
+                <Button>Удалить</Button>
               </Popconfirm>
             </span>
           )}
-          <span className='ant-divider' />
-          <Popover
-            content={
-              <div>
-                <div><a onClick= {() => this.editRecordRedux1(record.id)}>Redux Form 1</a></div>
-                <div><a onClick= {() => this.editRecordRedux2(record.id)}>Redux Form 2</a></div>
-                <div><a onClick= {() => this.editRecordRedux3(record.id)}>Redux Form 3</a></div>
-              </div>
-            }
-            title='List Action'
-            trigger='click'
-          >
-            <Button>Other Action</Button>
-          </Popover>
         </span>
       )
     } ];
+// Код для доп действий в строке - отключаю
+
+//    <span className='ant-divider' />
+//    <Popover
+//      content={
+//        <div>
+//          <div><a onClick= {() => this.editRecordRedux1(record.id)}>Redux Form 1</a></div>
+//          <div><a onClick= {() => this.editRecordRedux2(record.id)}>Redux Form 2</a></div>
+//          <div><a onClick= {() => this.editRecord(record.id)}>Simple Form</a></div>
+//        </div>
+//      }
+//      title='List Action'
+//      trigger='click'
+//    >
+//      <Button>Other Action</Button>
+//    </Popover>
+//  </span>
+
 
 // <Button onClick= {browserHistory.push(`/record/${record.id}`)}>Edit</Button>
 // <Button onClick={this.setIdSort}>Sort Id</Button>

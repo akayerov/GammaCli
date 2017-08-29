@@ -201,7 +201,7 @@ class InitializeFromStateForm extends Component {
           <div>
             <Field name='date_end' component={renderDateFieldMod} type='text' placeholder=''/>
           </div>
-          <label>Дата поступления</label>
+          <label>Дата фактического поступления</label>
           <div>
             <Field
               disabled = {disabled.dateFact}
@@ -217,13 +217,13 @@ class InitializeFromStateForm extends Component {
             <Field name='moId'  component='input' type='text' placeholder='' disabled/>
           </div>
         </div>
-        <div>
-          <Button type='primary' htmlType='submit' disabled={pristine || submitting}>Submit</Button>
-          <Button type='default' htmlType='button' disabled={pristine || submitting}  onClick={reset}>Undo Changes</Button>
+        <div style={{ marginTop : '20px' }}>
+          <Button type='primary' htmlType='submit' disabled={pristine || submitting}>Сохранить</Button>
+          <Button type='default' htmlType='button' disabled={pristine || submitting}  onClick={reset}>Отменить изменения</Button>
           <Button type='default'
             onClick={() => this.enterToList()}
           >
-            To List
+            К списку
           </Button>
         </div>
       </form>
