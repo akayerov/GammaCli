@@ -45,30 +45,22 @@ class NormalLoginForm extends React.Component {
       <Form onSubmit={this.handleSubmit} className='login-form'>
         <FormItem>
           {getFieldDecorator('userName', {
-            rules: [ { required: true, message: 'Please input your username!' } ]
+            rules: [ { required: true, message: 'Введите имя пользователя!' } ]
           })(
-            <Input prefix={<Icon type='user' style={{ fontSize: 13 }} />} placeholder='Username' />
+            <Input prefix={<Icon type='user' style={{ fontSize: 13 }} />} placeholder='Имя пользователя' />
           )}
         </FormItem>
         <FormItem>
           {getFieldDecorator('password', {
-            rules: [ { required: true, message: 'Please input your Password!' } ]
+            rules: [ { required: true, message: 'Введите пароль!' } ]
           })(
-            <Input prefix={<Icon type='lock' style={{ fontSize: 13 }} />} type='password' placeholder='Password' />
+            <Input prefix={<Icon type='lock' style={{ fontSize: 13 }} />} type='password' placeholder='Пароль' />
           )}
         </FormItem>
         <FormItem>
-          {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true
-          })(
-            <Checkbox>Remember me</Checkbox>
-          )}
-          <a className='login-form-forgot' href=''>Forgot password</a>
           <Button type='primary' htmlType='submit' className='login-form-button'>
-            Log in
+            Войти
           </Button>
-          Or <a href=''>register now!</a>
         </FormItem>
       </Form>
     );
