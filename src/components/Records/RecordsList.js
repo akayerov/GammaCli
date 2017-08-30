@@ -314,9 +314,18 @@ class RecordsList extends Component {
       <div>
         <h2>Список направлений</h2>
         <div className='table-operations'>
-          <Button onClick={this.addRecordRedux3}>Добавить</Button>
-          <Button onClick={this.refreshRecord}>Обновить</Button>
-          <Button onClick={exportExcel3}>в Excel</Button>
+          {role > 0  ? (
+            <span>
+              <Button onClick={this.refreshRecord}>Обновить</Button>
+              <Button onClick={exportExcel3}>в Excel</Button>
+            </span>
+          ) : (
+            <span>
+              <Button onClick={this.addRecordRedux3}>Добавить</Button>
+              <Button onClick={this.refreshRecord}>Обновить</Button>
+              <Button onClick={exportExcel3}>в Excel</Button>
+            </span>
+          )}
         </div>
         <Table  rowKey='id'
           columns={columns}
