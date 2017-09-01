@@ -12,8 +12,9 @@ import RecordReduxForm1Container from './components/ReduxForm/ReduxForm1Containe
 import RecordReduxForm2Container from './components/ReduxForm/ReduxForm2Container';
 import RecordReduxForm3_1Container from './components/ReduxForm/ReduxForm3_1Container';
 
+import Login from './components/LoginModalNoButton';
 // import Login from './components/Login';
-import Login from './components/Login';
+// import Login from './components/LoginModal';
 import Home from './components/Home';
 import Private from './components/Private';
 import Table1 from './components/Example/Table1';
@@ -40,7 +41,7 @@ const RouterContainer = ({ logout }) => (
       <Route path='records'
         onEnter={() => {
           if (!isLogged()) {
-            notification.error({ message: 'Вы должны быть авторизованы!' });
+  //          notification.error({ message: 'Вы должны быть авторизованы!' });
             browserHistory.push('/login');
           }
         }}

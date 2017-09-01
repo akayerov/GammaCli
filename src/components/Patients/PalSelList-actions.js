@@ -1,9 +1,12 @@
 export const GET_PAT_SELECT_LIST = 'GET_PAT_SELECT_LIST';
+const conf = require('../../conf');
+
 // akk это полный аналог переписанный в другой нотации
 export function getPatSelList() {
   return function (dispatch, getState) {
     console.log('getPatSelList');
-    fetch('//localhost:3000/patients', {
+//    fetch('//localhost:3000/patients', {
+    fetch(`${conf.url  }/patients`, {
       headers: {
         Authorization: getState().auth.token
       }

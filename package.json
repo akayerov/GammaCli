@@ -59,6 +59,7 @@
     "babel": "6.x",
     "babel-eslint": "^7.1.1",
     "babel-loader": "6.*",
+    "babel-plugin-import": "^1.4.0",
     "css-loader": "^0.22.0",
     "es6-promise": "^4.0.5",
     "eslint": "^3.15.0",

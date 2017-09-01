@@ -1,3 +1,5 @@
+const conf = require('../../conf');
+
 export const GET_RECORD = 'GET_RECORD';
 /*
 export const getRecordsData = () => (dispatch, getState) => {
@@ -7,7 +9,7 @@ export const getRecordsData = () => (dispatch, getState) => {
 export function getRecord(id) {
   return function (dispatch, getState) {
     if (id !== 'add') {
-      fetch(`//localhost:3000/record/${id}`, {
+      fetch(`${conf.url  }/record/${id}`, {
         headers: {
           Authorization: getState().auth.token
         }
@@ -42,7 +44,7 @@ export function getRecord(id) {
     }     else { // add record
       dispatch({ type:GET_RECORD,
         data: {
-          date_rec:'2017-06-01T21:00:00.000Z'
+          date_rec:'1900-01-01T00:00:00.000Z'
         }
       });
     }

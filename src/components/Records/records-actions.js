@@ -1,3 +1,6 @@
+const conf = require('../../conf');
+
+
 export const GET_RECORDS_DATA = 'GET_RECORDS_DATA';
 
 /*
@@ -25,7 +28,7 @@ export const getRecordsData = () => (dispatch, getState) => {
 export function getRecordsData() {
   return function (dispatch, getState) {
     console.log('getRecordsData');
-    fetch('//localhost:3000/records', {
+    fetch(`${conf.url  }/records`, {
       headers: {
         Authorization: getState().auth.token
       }

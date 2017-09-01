@@ -1,4 +1,7 @@
+const conf = require('../../conf');
+
 export const UPDATE_RECORD = 'UPDATE_RECORD';
+
 import  DateYMD  from '../../util/dateYMD';
 
 function encodeBodyRF(getState, flagAdd, value) {
@@ -86,7 +89,7 @@ export function updateRecordRF(flagAdd, value) {
 
 
 //      fetch(`//localhost:3000/recordf/${getState().record.id}`, {
-      fetch(`//localhost:3000/recordf/${oBody.id}`, {
+      fetch(`${conf.url  }/recordf/${oBody.id}`, {
         headers: {
           Authorization: getState().auth.token,
           'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'

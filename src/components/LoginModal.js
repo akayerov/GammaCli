@@ -1,3 +1,5 @@
+const conf = require('../conf');
+
 import  React from 'react';
 import { connect } from 'react-redux';
 import { Input,  Icon, Modal, Button } from 'antd';
@@ -26,7 +28,8 @@ class LoginModal extends React.Component {
   handleOk = (e) => {
     console.log(e);
 //    this.funcPost();
-    fetch('http://localhost:3000/login', {
+//    fetch('http://localhost:3000/login', {
+    fetch(`${conf.url  }/login`, {
       method: 'POST',
       content_type: 'application/x-www-form-urlencoded',
       headers: {

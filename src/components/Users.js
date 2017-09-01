@@ -1,3 +1,5 @@
+const conf = require('../../conf');
+
 import React from 'react';
 // const fetch = require('node-fetch');
 
@@ -15,7 +17,8 @@ class Users extends React.Component {
     let status;
 
 
-    fetch('http://localhost:3000/users', {
+//    fetch('http://localhost:3000/users', {
+    fetch(`${conf.url  }/users`, {
       method: 'GET'
 //      headers: {
 //        'Connection'  :	'keep-alive'

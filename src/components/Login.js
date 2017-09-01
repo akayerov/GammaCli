@@ -1,3 +1,5 @@
+const conf = require('../conf');
+
 import  React from 'react';
 import { browserHistory } from 'react-router';
 
@@ -14,7 +16,8 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        fetch('http://localhost:3000/login', {
+//        fetch('http://localhost:3000/login', {
+        fetch(`${conf.url  }/login`, {
           method: 'POST',
           content_type: 'application/x-www-form-urlencoded',
           headers: {

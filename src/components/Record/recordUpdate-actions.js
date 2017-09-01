@@ -1,3 +1,5 @@
+const conf = require('../../conf');
+
 export const UPDATE_RECORD = 'UPDATE_RECORD';
 import { SET_SELECT_FIELD, setFormField  } from '../FormRecord/FormSelect-actions';
 import { GET_RECORDS_DATA  } from '../Records/records-actions';
@@ -69,7 +71,8 @@ export function updateRecord(flagAdd) {
       }
 
 
-      fetch(`//localhost:3000/recordf/${getState().record.id}`, {
+//      fetch(`//localhost:3000/recordf/${getState().record.id}`, {
+      fetch(`${conf.url  }/recordf/${getState().record.id}`, {
         headers: {
           Authorization: getState().auth.token,
           'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'

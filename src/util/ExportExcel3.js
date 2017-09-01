@@ -1,3 +1,5 @@
+const conf = require('../conf');
+
 import store from '../store';
 import FileSaver from 'file-saver';
 
@@ -5,7 +7,8 @@ import FileSaver from 'file-saver';
 // 'Content-Type': 'application/json'
 const  exportExcel = () => {
   console.log('Export to Excel');
-  fetch('//localhost:3000/export3', {
+//  fetch('//localhost:3000/export3', {
+  fetch(`${conf.url  }/export3`, {
     headers: {
       Authorization: store.getState().auth.token
     }

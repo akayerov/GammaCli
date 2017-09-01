@@ -1,4 +1,6 @@
 export const GET_RECORD = 'GET_RECORD';
+const conf = require('../../conf');
+
 import { SET_SELECT_FIELD, setFormField  } from '../FormRecord/FormSelect-actions';
 import {  initialState  } from '../FormRecord/FormSelect-reducer';
 /*
@@ -9,7 +11,9 @@ export const getRecordsData = () => (dispatch, getState) => {
 export function getRecord(id) {
   return function (dispatch, getState) {
     if (id !== 'add') {
-      fetch(`//localhost:3000/record/${id}`, {
+//      fetch(`//localhost:3000/record/${id}`, {
+      fetch(`${conf.url  }/record/${id}`, {
+
         headers: {
           Authorization: getState().auth.token
         }
