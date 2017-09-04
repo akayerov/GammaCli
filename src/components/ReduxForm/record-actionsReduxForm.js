@@ -42,9 +42,14 @@ export function getRecord(id) {
        })
        .catch(err => alert(err.message || err));
     }     else { // add record
+      const dateEnd = new Date();
+
+      dateEnd.setDate(dateEnd.getDate() + 14);
       dispatch({ type:GET_RECORD,
         data: {
-          date_rec:'1900-01-01T00:00:00.000Z'
+//          date_rec:'1900-01-01T00:00:00.000Z'
+          date_rec:new Date(),
+          date_end:dateEnd
         }
       });
     }
